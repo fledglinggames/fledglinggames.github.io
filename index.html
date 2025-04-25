@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fledgling Games - Indie 2D Pixel Art Games</title>
+    <style>
+        /* Reset and base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Pixelify Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        
+        @import url('https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;500;600;700&display=swap');
+        
+        body {
+            background-color: #0a2240;
+            color: #ffffff;
+            line-height: 1.6;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        /* Animated pixel background */
+        .pixel-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.1;
+            background-image: 
+                linear-gradient(to right, #ffc629 1px, transparent 1px),
+                linear-gradient(to bottom, #ffc629 1px, transparent 1px);
+            background-size: 24px 24px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            padding: 30px 0;
+        }
+        
+        .logo {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #ffc629;
+            text-shadow: 3px 3px 0px #e3940e;
+            letter-spacing: 1px;
+        }
+        
+        .tagline {
+            font-size: 1.2rem;
+            margin-top: 5px;
+            color: #ffd766;
+        }
+        
+        /* Hero section */
+        .hero {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 100px 0;
+            min-height: 60vh;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            line-height: 1.2;
+            color: #ffc629;
+            text-shadow: 4px 4px 0px #e3940e;
+        }
+        
+        .hero p {
+            font-size: 1.25rem;
+            max-width: 800px;
+            margin: 0 auto 40px;
+            color: #ffd766;
+        }
+        
+        .pixel-art {
+            width: 300px;
+            height: 300px;
+            background-color: #0a2240;
+            position: relative;
+            margin: 20px auto;
+            box-shadow: 0 10px 30px rgba(255, 198, 41, 0.3);
+            overflow: hidden;
+            border: 4px solid #1e428a;
+        }
+        
+        .pixel-bird {
+            position: absolute;
+            width: 64px;
+            height: 64px;
+            background-color: #ffc629;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: float 3s ease-in-out infinite;
+            clip-path: polygon(
+                50% 0%, 
+                75% 25%, 
+                100% 25%, 
+                100% 50%, 
+                75% 75%,
+                50% 100%,
+                25% 75%,
+                0% 50%,
+                0% 25%,
+                25% 25%
+            );
+        }
+        
+        .pixel-bird::before {
+            content: '';
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            background-color: #333333;
+            border-radius: 50%;
+            top: 16px;
+            left: 24px;
+        }
+        
+        .pixel-bird::after {
+            content: '';
+            position: absolute;
+            width: 24px;
+            height: 12px;
+            background-color: #e3940e;
+            top: 36px;
+            left: 20px;
+            clip-path: polygon(0 0, 100% 0, 90% 100%, 10% 100%);
+        }
+        
+        @keyframes float {
+            0% { transform: translate(-50%, -50%); }
+            50% { transform: translate(-50%, -60%); }
+            100% { transform: translate(-50%, -50%); }
+        }
+        
+        /* About section */
+        .about {
+            padding: 80px 0;
+            background-color: rgba(10, 34, 64, 0.7);
+            border-top: 4px solid #1e428a;
+            border-bottom: 4px solid #1e428a;
+        }
+        
+        .about h2 {
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            text-align: center;
+            color: #ffc629;
+            text-shadow: 3px 3px 0px #e3940e;
+        }
+        
+        .team {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 40px;
+        }
+        
+        .team-member {
+            flex: 0 1 300px;
+            text-align: center;
+            padding: 20px;
+            background-color: rgba(30, 66, 138, 0.3);
+            border-radius: 8px;
+            transition: transform 0.3s ease;
+            border: 2px solid #1e428a;
+        }
+        
+        .team-member:hover {
+            transform: translateY(-5px);
+        }
+        
+        .team-member h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: #ffd766;
+        }
+        
+        .team-member p {
+            color: #ffedb2;
+        }
+        
+        .avatar {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 20px;
+            background-color: #ffc629;
+            border-radius: 15px;
+            position: relative;
+            overflow: hidden;
+            border: 3px solid #e3940e;
+        }
+        
+        .avatar::before {
+            content: '';
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            background-color: #e3940e;
+            top: 20px;
+            left: 30px;
+            clip-path: polygon(
+                50% 0%, 
+                80% 30%, 
+                100% 0, 
+                100% 100%, 
+                0 100%, 
+                0 0,
+                20% 30%
+            );
+        }
+        
+        /* Footer */
+        footer {
+            padding: 40px 0;
+            text-align: center;
+            background-color: #051224;
+        }
+        
+        footer p {
+            color: #8aacdf;
+            font-size: 0.9rem;
+        }
+        
+        /* Coming soon */
+        .coming-soon {
+            display: inline-block;
+            background-color: #1e428a;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 4px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            margin-top: 20px;
+            box-shadow: 3px 3px 0px #0a2240;
+        }
+        
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .pixel-art {
+                width: 200px;
+                height: 200px;
+            }
+            
+            .team {
+                gap: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="pixel-bg"></div>
+    
+    <div class="container">
+        <header>
+            <div class="logo">Fledgling Games</div>
+            <div class="tagline">Pixel art adventures about to take flight</div>
+        </header>
+        
+        <section class="hero">
+            <h1>Welcome to Fledgling Games</h1>
+            <p>We're a tiny indie game studio working on our first 2D pixel art mobile game. Our team of curious birds is hard at work creating charming pixel worlds for you to explore.</p>
+            
+            <div class="pixel-art">
+                <div class="pixel-bird"></div>
+            </div>
+            
+            <div class="coming-soon">FIRST GAME COMING SOON</div>
+        </section>
+        
+        <section class="about">
+            <div class="container">
+                <h2>Meet the Nest</h2>
+                <p>Fledgling Games is a tiny but enthusiastic team dedicated to crafting delightful 2D pixel art games. We're currently working on our first mobile game, with big dreams to create more pixel adventures in the future.</p>
+                
+                <div class="team">
+                    <div class="team-member">
+                        <div class="avatar"></div>
+                        <h3>Bird1</h3>
+                        <p>Game Developer</p>
+                    </div>
+                    
+                    <div class="team-member">
+                        <div class="avatar"></div>
+                        <h3>Bird0</h3>
+                        <p>Helper and Supporter</p>
+                    </div>
+                    
+                    <div class="team-member">
+                        <div class="avatar"></div>
+                        <h3>Claude</h3>
+                        <p>Assistant</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Fledgling Games. Landing page made with Claude. We're hard at work and hope to fly the nest soon!</p>
+        </div>
+    </footer>
+</body>
+</html>
